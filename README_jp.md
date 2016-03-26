@@ -14,4 +14,4 @@
 もし、動画再生終了時のコールバックを使いたい場合は、Inspector内のUnityEventから設定することができます。
 
 ## Download unitypackage
-[Download - UnityAdsController.unitypackage](https://github.com/yasuyuki-kamata/UnityAdsController/releases/download/1.0.1/UnityAdsController.unitypackage)
+[Download - UnityAdsController.unitypackage](https://github.com/unity3d-jp/UnityAdsController/releases/download/1.0.1/UnityAdsController.unitypackage)
