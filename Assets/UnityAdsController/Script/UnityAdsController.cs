@@ -1,17 +1,14 @@
 ﻿/* 
  * UnityAdsController.cs
- * https://github.com/yasuyuki-kamata/UnityAdsController
- * 
+ * http://bit.ly/unityadscontroller
  * 
  * if the errors are caused in Editor, please check the following things
  *  - Missing "UnityEngine.Advertisements"
  *    -> Turning ON the UnityAds Service from Services Window.
- *    -> Or, import UnityAds SDK from AssetStore.
  * 
  * もしUnityエディタでエラーがでる場合は、下記のことをご確認ください
  *  - "UnityEngine.Advertisements"がみつからないといわれたとき
  *    -> ServiceウィンドウからAdsサービスをONにしてください
- *    -> または、アセットストアからUnityAdsのSDKをインポートしてください
  */
 using UnityEngine;
 using System.Collections;
