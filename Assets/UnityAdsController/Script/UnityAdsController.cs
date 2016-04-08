@@ -14,6 +14,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.Assertions;
 
 public class UnityAdsController : MonoBehaviour
 {
@@ -24,6 +26,11 @@ public class UnityAdsController : MonoBehaviour
 	[SerializeField]
 	string gameID_Android = "1050907";
 
+	[Header("OnReady Enable Button")]
+	public Button adsButton;
+	[Header("OnReady Callback")]
+	public UnityEvent OnReadyAds;
+
 	[Header("OnFinished Callback")]
 	public UnityEvent OnFinishedAds;
 	[Header("OnSkipped Callback")]
@@ -31,23 +38,38 @@ public class UnityAdsController : MonoBehaviour
 	[Header("OnFailed Callback")]
 	public UnityEvent OnFailedAds;
 
-	void Start ()
+	void Awake ()
 	{
 		if (Advertisement.isSupported && !Advertisement.isInitialized) {
 			#if UNITY_ANDROID
+			Assert.IsNotNull (gameID_Android);
 			Advertisement.Initialize(gameID_Android);
 			#elif UNITY_IOS
+			Assert.IsNotNull (gameID_iOS);
 			Advertisement.Initialize(gameID_iOS);
 			#endif
 		}
+	}
+
+	void OnEnable ()
+	{
+		StartCoroutine (waitForAdsReady());
+	}
+
+	IEnumerator waitForAdsReady ()
+	{
+		if (adsButton != null) adsButton.gameObject.SetActive (false);
+		yield return new WaitUntil (() => Advertisement.IsReady () == true);
+		if (adsButton != null) adsButton.gameObject.SetActive (true);
+		OnReady ();
 	}
 
 	public void ShowUnityAds ()
 	{
 		#if UNITY_ANDROID || UNITY_IOS
 		if (Advertisement.IsReady(zoneID)) {
-		var options = new ShowOptions { resultCallback = HandleShowResult };
-		Advertisement.Show(zoneID, options);
+			var options = new ShowOptions { resultCallback = HandleShowResult };
+			Advertisement.Show(zoneID, options);
 		}
 		#endif
 	}
@@ -71,21 +93,23 @@ public class UnityAdsController : MonoBehaviour
 		}
 	}
 
+	void OnReady ()
+	{
+		OnReadyAds.Invoke();
+	}
+
 	void OnFinished ()
 	{
-		// ここに動画視聴完了時の処理
 		OnFinishedAds.Invoke();
 	}
 
 	void OnSkipped ()
 	{
-		// ここに動画をスキップしたときの処理
 		OnSkippedAds.Invoke();
 	}
 
 	void OnFailed ()
 	{
-		// ここに動画視聴失敗時の処理
 		OnFailedAds.Invoke();
 	}
 }

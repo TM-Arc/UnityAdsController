@@ -124,6 +124,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11426586, guid: 2222d52d86c4149bd9c5a0d2e4b185cc, type: 2}
+      propertyPath: adsButton
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2222d52d86c4149bd9c5a0d2e4b185cc, type: 2}
   m_IsPrefabParent: 0
